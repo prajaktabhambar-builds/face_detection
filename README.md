@@ -1,67 +1,79 @@
-# Face Detecton In Python Using OpenCV
+# Real-Time Face Detection & Vision Suite in Python using OpenCV
 
-# OpenCV
+A real-time Computer Vision application built with Python and OpenCV featuring multi-feature facial detection, interactive visual filters, privacy anonymization, snapshot capture, and video recording.
 
-OpenCV is an open source computer vision and machine learning software library. It is a BSD-licence product thus free for both business and academic purposes.The Library provides more than 2500 algorithms that include machine learning tools for classification and clustering, image processing and vision algorithm, basic algorithms and drawing functions, GUI and I/O functions for images and videos. Some applications of these algorithms include face detection, object recognition, extracting 3D models, image processing, camera calibration, motion analysis etc.
+---
 
-OpenCV is written natively in C/C++. It has C++, C, Python and Java interfaces and supports Windows, Linux, Mac OS, iOS, and Android. OpenCV was designed for computational efficiency and targeted for real-time applications. Written in optimized C/C++, the library can take advantage of multi-core processing.
+## Features
 
-# Face Detection
+### 1. Multi-Feature Facial Detection
+- **Face Detection**: Fast Haar Cascade frontal face detector with custom corner reticles and individual face counter IDs (`Face #1`, `Face #2`, etc.).
+- **Eye Detection (`E`)**: Real-time detection of eyes with circular reticles constrained to facial regions.
+- **Smile Detection (`S`)**: Detects smiles and dynamically displays a smiling indicator (`Smiling :-)`) below the face.
 
-Face detection has gained a lot of attention due to its real-time applications. A lot of research has been done and still going on for improved and fast implementation of the face detection algorithm. Why is face detection difficult for a machine? Face detection is not as easy as it seems due to lots of variations of image appearance, such as pose variation (front, non-front), occlusion, image orientation, illumination changes and facial expression.
+### 2. Interactive Visual Modes
+Switch between 4 visual modes in real-time by pressing keys `1` to `4`:
+- **`[1] Box & Reticle`**: Sleek neon corner brackets and target reticle with face index tags.
+- **`[2] Privacy Blur`**: Gaussian blur applied dynamically over all detected faces (anonymizes identities for streaming or sensitive demos).
+- **`[3] 8-Bit Mosaic`**: Retro pixelated censor mosaic on face regions.
+- **`[4] Cyberpunk Neon`**: Real-time edge detection and turbo colormap overlay for a futuristic visual style.
 
-OpenCV contains many pre-trained classifiers for face, eyes, smile etc. The XML files of pre-trained classifiers are stored in opencv/data/. For face detection specifically, there are two pre-trained classifiers:
+### 3. Media Capture & Recording
+- **Instant Snapshot (`C` or `Space`)**: Captures and saves photos to `captures/capture_YYYYMMDD_HHMMSS.jpg` with an authentic shutter flash effect and on-screen toast confirmation.
+- **Live Video Recording (`R`)**: Starts and stops recording MP4 video directly to `recordings/rec_YYYYMMDD_HHMMSS.mp4` with a pulsing red `REC` indicator.
 
-1.Haar Cascade Classifier
+### 4. Modern Heads-Up Display (HUD)
+- **Real-Time FPS Counter**: Smoothed framerate tracker.
+- **Live Face Counter Badge**: Visual pill displaying how many faces are in the frame.
+- **Feature Status Badges**: Shows active mode, eye tracking status, and smile detection status.
+- **Interactive Help Menu (`H`)**: Toggle on-screen keyboard shortcuts overlay anytime.
 
-2.LBP Cascade Classifier
+---
 
-We will explore both face detectors in this tutorial.
+## Keyboard Controls & Shortcuts
 
-# Haar Cascade Classifier
+| Key | Action | Description |
+|:---:|:---|:---|
+| <kbd>1</kbd> | **Reticle Box Mode** | Default neon brackets & face indexing |
+| <kbd>2</kbd> | **Privacy Blur** | Blurs detected faces for privacy |
+| <kbd>3</kbd> | **8-Bit Mosaic** | Pixelated censor mosaic on faces |
+| <kbd>4</kbd> | **Cyberpunk Neon** | Futuristic edge & colormap overlay |
+| <kbd>E</kbd> | **Toggle Eyes** | Enable/disable eye detection |
+| <kbd>S</kbd> | **Toggle Smile** | Enable/disable smile detection |
+| <kbd>C</kbd> / <kbd>Space</kbd> | **Take Snapshot** | Saves frame to `captures/` |
+| <kbd>R</kbd> | **Record Video** | Toggles MP4 video recording in `recordings/` |
+| <kbd>H</kbd> | **Toggle Help** | Shows/hides on-screen shortcut guide |
+| <kbd>Q</kbd> / <kbd>Esc</kbd> | **Quit** | Clean exit and releases camera resource |
 
-It is a machine learning based approach where a cascade function is trained from a lot of positive (images with face) and negative images (images without face). The algorithm is proposed by Paul Viola and Michael Jones.
+---
 
-The algorithm has four stages:
+## Installation & Setup
 
-# 1.Haar Feature Selection:
-Haar features are calculated in the subsections of the input image. The difference between the sum of pixel intensities of adjacent rectangular regions is calculated to differentiate the subsections of the image. A large number of haar-like features are required for getting facial features.
-# 2.Creating an Integral Image: 
-Too much computation will be done when operations are performed on all pixels, so an integral image is used that reduce the computation to only four pixels. This makes the algorithm quite fast.
-# 3.Adaboost: 
-All the computed features are not relevant for the classification purpose. Adaboost is used to classify the relevant features.
-# 4.Cascading Classifiers: 
-Now we can use the relevant features to classify a face from a non-face but algorithm provides another improvement using the concept of cascades of classifiers. Every region of the image is not a facial region so it is not useful to apply all the features on all the regions of the image. Instead of using all the features at a time, group the features into different stages of the classifier.Apply each stage one-by-one to find a facial region. If on any stage the classifier fails, that region will be discarded from further iterations. Only the facial region will pass all the stages of the classifier.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Prajakta-bhambar/Face-Detection.git
+   cd Face-Detection-1
+   ```
 
-# LBP Cascade Classifier 
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-LBP is a texture descriptor and face is composed of micro texture patterns. So LBP features are extracted to form a feature vector to classify a face from a non-face. Following are the basic steps of LBP Cascade classifier algorithm:
+3. **Run the application**:
+   ```bash
+   python FaceDetection.py
+   ```
 
-# 1.LBP Labelling:
-A label as a string of binary numbers is assigned to each pixel of an image.
-# 2.Feature Vector: 
-Image is divided into sub-regions and for each sub-region, a histogram of labels is constructed. Then, a feature vector is formed by concatenating the sub-regions histograms into a large histogram.
-# 3.AdaBoost Learning:
-Strong classifier is constructed using gentle AdaBoost to remove redundant information from feature vector.
-# 4.Cascade of Classifier:
-The cascades of classifiers are formed from the features obtained by the gentle AdaBoost algorithm. Sub-regions of the image is evaluated starting from simpler classifier to strong classifier. If on any stage classifier fails, that region will be discarded from further iterations. Only the facial region will pass all the stages of the classifier.
+---
 
-# Steps :
-
-       # 1.Loading HaarCascadeFace Algorithm
-       
-       # 2.Initializing Camera
-       
-       # 3.Reading Frame from Camera
-       
-       # 4.Converting Color image into Grayscale Image
-       
-       # 5.Obtaining Face coordinates by passing algorithm
-       
-       # 6.Drawing Rectangle on the Face Coordinates
-       
-       # 7.Display the output Frame
-
-# Output :
-
-To see the output video, go to the media file and check the output video
+## Directory Structure
+```
+Face-Detection-1/
+├── captures/                           # Auto-created; stores snapshot photos
+├── recordings/                         # Auto-created; stores recorded MP4 videos
+├── FaceDetection.py                    # Main real-time computer vision application
+├── haarcascade_frontalface_default.xml # Pre-trained frontal face classifier
+├── requirements.txt                    # Project dependencies
+└── README.md                           # Documentation
+```

@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# User captures & recordings
+captures/
+recordings/
+
+# Environment / IDE
+.vscode/
+.idea/
+.env
+venv/
+env/
