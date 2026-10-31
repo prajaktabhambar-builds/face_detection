@@ -51,8 +51,8 @@ Switch between 4 visual modes in real-time by pressing keys `1` to `4`:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Prajakta-bhambar/Face-Detection.git
-   cd Face-Detection-1
+   git clone https://github.com/prajaktabhambar-builds/face_detection.git
+   cd face_detection
    ```
 
 2. **Install dependencies**:
